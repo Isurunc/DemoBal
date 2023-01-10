@@ -1,24 +1,14 @@
-import isurupiyarathna/may11_1;
 import ballerina/http;
 
-# A service representing a network-accessible API
-# bound to port `9090`.
-service / on new http:Listener(9090) {
+type Greeting record {
+    string 'from;
+    string to;
+    string message;
+};
 
-    # A resource for generating greetings
-    # + name - the input string name
-    # + return - string name with hello message or error
-    resource function get greeting(string name) returns string|error {
-        // Send a response back to the caller.
-
-        may11_1:Client may11_1Ep = check new (clientConfig = {
-            auth: {
-                clientId: "hhoh",
-                clientSecret: "hhhyh"
-            }
-        }, serviceUrl = "hhhh");
-        return "Hello, " + name;
+service / on new http:Listener(8090) {
+    resource function get .(string name) returns Greeting {
+        Greeting greetingMessage = {"from" : "Choreo", "to" : name, "message" : "Welcome to Choreo!"};
+        return greetingMessage;
     }
 }
-
-
